@@ -16,6 +16,8 @@ jobs:
   security:
     name: Audit dependencies and tests
     runs-on: ubuntu-latest
+    env:
+      APP_KEY: base64:xlq6RFv7yBJiIkZHThxBCZbcf3Nwb2g7xpohaGpLhGQ=
 
     steps:
       - name: Check out repository
