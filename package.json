@@ -11,14 +11,14 @@
         "@vitejs/plugin-vue": "^6.0.8",
         "alpinejs": "^3.14.0",
         "autoprefixer": "^10.4.19",
-        "axios": "^1.7.2",
+        "axios": "^1.21.0",
         "bootstrap": "^5.3.3",
         "laravel-vite-plugin": "^3.2.0",
         "postcss": "^8.4.38",
         "sass": "^1.77.5",
         "tailwindcss": "^3.4.3",
-        "vite": "^8.2.2",
-        "vue": "^3.4.21"
+        "vite": "^8.3.6",
+        "vue": "^3.5.45"
     },
     "dependencies": {
         "immutable": "^5.1.8"
