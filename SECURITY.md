@@ -71,6 +71,17 @@ npm update
 5. **CSRF protection** - Use Laravel's built-in CSRF tokens
 6. **Rate limiting** - Implement rate limiting on critical endpoints
 
+### Application limits
+
+The application applies these limits to sensitive operations:
+
+- Login: 5 failed attempts per minute per email and IP (Laravel's built-in authentication limiter).
+- Registration: 5 requests per minute per IP.
+- Password reset requests: 5 requests per minute per IP and per email/IP combination.
+- Product creation, updates, and deletion: 60 requests per minute per authenticated user.
+
+Rate-limit responses return HTTP 429. If these limits are changed for production traffic, update the feature tests that cover the affected endpoint.
+
 ## Third-Party Components
 
 This project includes:

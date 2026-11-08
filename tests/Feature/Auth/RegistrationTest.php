@@ -28,4 +28,23 @@ class RegistrationTest extends TestCase
         $this->assertAuthenticated();
         $response->assertRedirect(route('dashboard', absolute: false));
     }
+
+    public function test_registration_is_rate_limited(): void
+    {
+        foreach (range(1, 5) as $attempt) {
+            $this->post('/register', [
+                'name' => 'Test User '.$attempt,
+                'email' => 'test'.$attempt.'@example.com',
+                'password' => 'password',
+                'password_confirmation' => 'password',
+            ]);
+        }
+
+        $this->post('/register', [
+            'name' => 'Blocked User',
+            'email' => 'blocked@example.com',
+            'password' => 'password',
+            'password_confirmation' => 'password',
+        ])->assertTooManyRequests();
+    }
 }

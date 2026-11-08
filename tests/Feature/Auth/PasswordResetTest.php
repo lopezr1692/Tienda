@@ -70,4 +70,17 @@ class PasswordResetTest extends TestCase
             return true;
         });
     }
+
+    public function test_password_reset_requests_are_rate_limited(): void
+    {
+        foreach (range(1, 5) as $attempt) {
+            $this->post('/forgot-password', [
+                'email' => 'unknown'.$attempt.'@example.com',
+            ]);
+        }
+
+        $this->post('/forgot-password', [
+            'email' => 'unknown@example.com',
+        ])->assertTooManyRequests();
+    }
 }

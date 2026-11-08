@@ -18,7 +18,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::middleware('verified')->group(function () {
-        Route::resource('products', ProductController::class)->except('show');
+        Route::resource('products', ProductController::class)
+            ->except('show')
+            ->middlewareFor(['store', 'update', 'destroy'], 'throttle:product-write');
     });
 });
 

@@ -64,4 +64,23 @@ class ProductTest extends TestCase
             ])
             ->assertSessionHasErrors(['description', 'price']);
     }
+
+    public function test_product_writes_are_rate_limited(): void
+    {
+        $user = User::factory()->create();
+
+        foreach (range(1, 60) as $attempt) {
+            $this->actingAs($user)->post(route('products.store'), [
+                'description' => 'Producto '.$attempt,
+                'price' => 150,
+            ])->assertRedirect(route('products.index'));
+        }
+
+        $this->actingAs($user)
+            ->post(route('products.store'), [
+                'description' => 'Producto bloqueado',
+                'price' => 150,
+            ])
+            ->assertTooManyRequests();
+    }
 }
