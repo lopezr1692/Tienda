@@ -48,8 +48,8 @@ jobs:
       - name: Audit npm dependencies
         run: npm audit --audit-level=moderate
 
-      - name: Run Laravel tests
-        run: php artisan test
-
       - name: Build frontend assets
         run: npm run build
+
+      - name: Run Laravel tests
+        run: php artisan test
